@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppProgrammingProject</string>
+    <string name="projectNameHeader">The Eat Chooser</string>
 </resources>

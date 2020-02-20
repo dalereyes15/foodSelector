@@ -26,4 +26,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="371dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="225dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/Main_Label"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="219dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="96dp"
+        android:entries="@array/categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="162dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="162dp"
+        android:background="#03A9F4"
+        android:text="@string/button_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

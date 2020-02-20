@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">AppProgrammingProject</string>
     <string name="projectNameHeader">The Eat Chooser</string>
+    <string name="Main_Label">What Do You Want To Eat?</string>
+    <string-array name="categories">
+        <item>Billie Jean</item>
+        <item>PYT</item>
+        <item>Thriller</item>
+    </string-array>
+    <string name="button_label">GO!</string>
+    <string name="results_laabel">Result</string>
+    <string name="try_again_button_label">Try Again</string>
+    <string name="history_label">History</string>
+
 </resources>

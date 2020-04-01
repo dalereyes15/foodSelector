@@ -7,3 +7,4 @@ public abstract class RestaurantDatabase extends RoomDatabase {
     public abstract RestaurantDAO restaurantDAO();
 
 }
+

@@ -14,7 +14,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 
 public class HistoryActivity extends AppCompatActivity {
-    
+
     JSONArray data = new JSONArray();
 
     @Override

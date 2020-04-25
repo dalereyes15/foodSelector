@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".HistoryActivity"></activity>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/map_key" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

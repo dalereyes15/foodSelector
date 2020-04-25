@@ -10,7 +10,7 @@
         android:id="@+id/rest_name"
         android:layout_width="262dp"
         android:layout_height="64dp"
-        android:text="TextView"
+        android:text="@string/rest_name"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

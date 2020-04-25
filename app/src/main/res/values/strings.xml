@@ -11,5 +11,6 @@
     <string name="results_laabel">Result</string>
     <string name="try_again_button_label">Try Again</string>
     <string name="history_label">History</string>
+    <string name="rest_name">Restaurants</string>
 
 </resources>

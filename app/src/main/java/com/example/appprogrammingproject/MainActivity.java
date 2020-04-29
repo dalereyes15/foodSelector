@@ -14,6 +14,8 @@ import android.widget.Button;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.PlaceDetectionClient;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +34,8 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,22 +61,18 @@ public class MainActivity extends AppCompatActivity {
     private PlacesClient placesClient;
 
 
+    double addresslatitude =  0.0;
+    double addresslongitude = 0.0;
+
+    LatLng addressCoordinates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Go = (Button) findViewById(R.id.button);
-
-        Go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                startActivity(intent);
-            }
-        });
 
         /**
          * Places API additions
@@ -88,14 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
         // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
-                System.out.println(place.getId() + " " + place.getName());
+                addressCoordinates = place.getLatLng();
+                addresslatitude = addressCoordinates.latitude;
+                addresslongitude = addressCoordinates.longitude;
+
+                System.out.println("ADDRESS INPUT INFO!" + place.getId() + " " + place.getName());
             }
 
             @Override
@@ -105,11 +109,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Go = (Button) findViewById(R.id.button);
+
+        Go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                startActivity(intent);
+                //restaurantFacilitator(40.1998, -76.7311,10000);
+                restaurantFacilitator(addresslatitude, addresslongitude,1000);
+            }
+        });
+
+
+        /**
+         * place holder for running http call on main thread
+         */
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        displayList();
-        //populateDB();
+
+        /**
+         * Since a new address will be added every time make sure to wipe the DB
+         */
+        clearDB();
+
+
     }
+
 
     private void placeDetails(){
         // Define a Place ID.
@@ -144,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String OUT_JSON = "/json?";
     private static final String LOG_TAG = "ListRest";
 
-    public ArrayList<Restaurant> search(double lat, double lng, int radius) {
+    public ArrayList<Restaurant> restaurantFacilitator(double lat, double lng, int radius) {
         ArrayList<Restaurant> resultList = null;
         final String api_key = "AIzaSyBsXLFj2Fyy2ceJIQh_sVG20PpCH7aU5dI";
         HttpURLConnection conn = null;
@@ -204,26 +231,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //Value Object for the ArrayList
-    public static class NewPlace {
-        private String reference;
-        private String name;
-
-        public NewPlace(){
-            super();
-        }
-        @Override
-        public String toString(){
-            return this.name; //This is what returns the name of each restaurant for array list
-        }
-    }
-
-    private void displayList() {
-        ArrayList<Restaurant> arrayList = search(40.1998, -76.7311,10000);
-        for(Restaurant place: arrayList) {
-            System.out.println(place.name);
-        }
-    }
+//    private void displayList() {
+//        ArrayList<Restaurant> arrayList = restaurantFacilitator(40.1998, -76.7311,10000);
+//        for(Restaurant place: arrayList) {
+//            System.out.println(place.name);
+//        }
+//    }
 
     private void populateDB(Restaurant restaurant){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -235,23 +248,36 @@ public class MainActivity extends AppCompatActivity {
         restaurantObject.put("rating", restaurant.getRestaurantid());
 
 
+
         // Add a new document with a generated ID
+        db.collection("restaurants").add(restaurant);
+
+    }
+
+    /**
+     * Clear the database after someone changes address
+     */
+    private void clearDB(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         db.collection("restaurants")
-                .add(restaurant)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        //Log.d("whoop", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //Log.w("whoop", "Error adding document", e);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int restaurants = 0;
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                restaurants++;
+                                if(restaurants > 1) {
+                                    document.getReference().delete();
+                                }
+                            }
+                        } else {
+
+                        }
                     }
                 });
-
-
     }
 
 }

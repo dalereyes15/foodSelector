@@ -8,12 +8,15 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    private ImageView image;
 
     Handler handler = new Handler();
     @Override
@@ -30,18 +33,19 @@ public class SplashScreenActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
-                },3700);
+                },3500);
             }
         });
-
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
+        image = (ImageView)findViewById(R.id.imageView2);
+        Animation myanim = AnimationUtils.loadAnimation(this,R.anim.activity_animation);
+        image.startAnimation(myanim);
 
     }
 }

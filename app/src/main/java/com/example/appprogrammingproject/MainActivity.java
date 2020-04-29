@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         displayList();
-        populateDB();
+        //populateDB();
     }
 
     private void placeDetails(){
@@ -144,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String OUT_JSON = "/json?";
     private static final String LOG_TAG = "ListRest";
 
-    public static ArrayList<NewPlace> search(double lat, double lng, int radius) {
-        ArrayList<NewPlace> resultList = null;
+    public ArrayList<Restaurant> search(double lat, double lng, int radius) {
+        ArrayList<Restaurant> resultList = null;
         final String api_key = "AIzaSyBsXLFj2Fyy2ceJIQh_sVG20PpCH7aU5dI";
         HttpURLConnection conn = null;
         StringBuilder jsonResults = new StringBuilder();
@@ -185,12 +185,15 @@ public class MainActivity extends AppCompatActivity {
             JSONArray predsJsonArray = jsonObj.getJSONArray("results");
 
             // Extract the descriptions from the results
-            resultList = new ArrayList<NewPlace>(predsJsonArray.length());
+            resultList = new ArrayList<Restaurant>(predsJsonArray.length());
             for (int i = 0; i < predsJsonArray.length(); i++) {
-                NewPlace place = new NewPlace();
-                place.reference = predsJsonArray.getJSONObject(i).getString("reference");
-                place.name = predsJsonArray.getJSONObject(i).getString("name");
-                resultList.add(place);
+                Restaurant restaurant = new Restaurant();
+                restaurant.restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
+                restaurant.name = predsJsonArray.getJSONObject(i).getString("name");
+                restaurant.address = predsJsonArray.getJSONObject(i).getString("vicinity");
+                restaurant.rating = predsJsonArray.getJSONObject(i).getString("rating");
+                populateDB(restaurant);
+                resultList.add(restaurant);
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Error processing JSON results", e);
@@ -216,19 +219,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayList() {
-        ArrayList<NewPlace> arrayList = search(40.1998, -76.7311,10000);
-        for(NewPlace place: arrayList) {
+        ArrayList<Restaurant> arrayList = search(40.1998, -76.7311,10000);
+        for(Restaurant place: arrayList) {
             System.out.println(place.name);
         }
     }
 
-    private void populateDB(){
+    private void populateDB(Restaurant restaurant){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
-        Map<String, Object> restaurant = new HashMap<>();
-        restaurant.put("restaurant id", "Ada");
-        restaurant.put("restaurant name", "Lovelace");
-        restaurant.put("born", 1815);
+        Map<String, Object> restaurantObject = new HashMap<>();
+        restaurantObject.put("restaurant id", restaurant.getRestaurantid());
+        restaurantObject.put("restaurant name", restaurant.getName());
+        restaurantObject.put("restaurant address", restaurant.getAddress());
+        restaurantObject.put("rating", restaurant.getRestaurantid());
 
 
         // Add a new document with a generated ID

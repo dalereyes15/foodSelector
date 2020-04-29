@@ -117,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, ResultActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 //restaurantFacilitator(40.1998, -76.7311,10000);
                 restaurantFacilitator(addresslatitude, addresslongitude,1000);
             }
@@ -214,11 +215,11 @@ public class MainActivity extends AppCompatActivity {
             // Extract the descriptions from the results
             resultList = new ArrayList<Restaurant>(predsJsonArray.length());
             for (int i = 0; i < predsJsonArray.length(); i++) {
-                Restaurant restaurant = new Restaurant();
-                restaurant.restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
-                restaurant.name = predsJsonArray.getJSONObject(i).getString("name");
-                restaurant.address = predsJsonArray.getJSONObject(i).getString("vicinity");
-                restaurant.rating = predsJsonArray.getJSONObject(i).getString("rating");
+                String name = predsJsonArray.getJSONObject(i).getString("name");
+                String address = predsJsonArray.getJSONObject(i).getString("vicinity");
+                String rating = predsJsonArray.getJSONObject(i).getString("rating");
+                String restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
+                Restaurant restaurant = new Restaurant(name, address, rating, restaurantid);
                 populateDB(restaurant);
                 resultList.add(restaurant);
             }
@@ -245,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         restaurantObject.put("restaurant id", restaurant.getRestaurantid());
         restaurantObject.put("restaurant name", restaurant.getName());
         restaurantObject.put("restaurant address", restaurant.getAddress());
-        restaurantObject.put("rating", restaurant.getRestaurantid());
+        restaurantObject.put("rating", restaurant.getRating());
 
 
 

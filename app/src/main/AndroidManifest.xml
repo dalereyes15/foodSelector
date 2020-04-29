@@ -20,7 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HistoryActivity" />
+        <activity android:name=".HistoryActivity"
+            android:exported="true"/>
         <activity android:name=".ResultActivity" />
 
         <meta-data

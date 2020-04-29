@@ -1,57 +1,52 @@
 package com.example.appprogrammingproject;
 
-
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-
-@Entity(tableName="Restaurants")
 public class Restaurant {
 
-    public Restaurant() {
+    private String name;
+    private String rating;
+    private String address;
+    private String restaurantid;
+
+    Restaurant() {
 
     }
 
-    @ColumnInfo(name = "name")
-    public String name;
-
-    @ColumnInfo(name = "name")
-    public String restaurantid;
-
-    @ColumnInfo(name = "address")
-    public String address;
-
-    @ColumnInfo(name = "rating")
-    public String rating;
-
-    public String getName() {
-        return name;
+    Restaurant(String name, String address, String rating, String restaurantid) {
+        this.name = name;
+        this.address = address;
+        this.rating = rating;
+        this.restaurantid = restaurantid;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getRestaurantid() {
-        return restaurantid;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
     public void setRestaurantid(String restaurantid) {
         this.restaurantid = restaurantid;
     }
 
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public String getAddress() {
+        return address;
     }
 
     public String getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
-        this.rating = rating;
+    public String getRestaurantid() {
+        return restaurantid;
     }
 }

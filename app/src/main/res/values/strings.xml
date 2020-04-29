@@ -13,5 +13,7 @@
     <string name="history_label">History</string>
     <string name="rest_name">Restaurants</string>
     <string name="image" />
+    <string name="history_card_name">restaurant_name</string>
+    <string name="history_card_rating">restaurant_rating</string>
 
 </resources>

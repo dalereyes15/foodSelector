@@ -56,7 +56,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    Button btnSettings;
     Button Go;
     private PlacesClient placesClient;
 
@@ -68,10 +68,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnSettings = (Button) findViewById(R.id.settings_button);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent hello = new Intent(MainActivity.this, PreferencesActivity.class);
+                startActivity(hello);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                //restaurantFacilitator(40.1998, -76.7311,10000);
+                restaurantFacilitator(addresslatitude, addresslongitude,1000);
+            }
+        });
 
 
         /**

@@ -214,11 +214,24 @@ public class MainActivity extends AppCompatActivity {
 
             // Extract the descriptions from the results
             resultList = new ArrayList<Restaurant>(predsJsonArray.length());
+
+
+            String name;
+            String address;
+            String rating;
+            String restaurantid;
             for (int i = 0; i < predsJsonArray.length(); i++) {
-                String name = predsJsonArray.getJSONObject(i).getString("name");
-                String address = predsJsonArray.getJSONObject(i).getString("vicinity");
-                String rating = predsJsonArray.getJSONObject(i).getString("rating");
-                String restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
+
+
+                name = predsJsonArray.getJSONObject(i).getString("name");
+                address = predsJsonArray.getJSONObject(i).getString("vicinity");
+                if((predsJsonArray.getJSONObject(i).getString("rating"))== null) {
+                    rating = "Not found";
+                }
+                else {
+                    rating = predsJsonArray.getJSONObject(i).getString("rating");
+                }
+                restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
                 Restaurant restaurant = new Restaurant(name, address, rating, restaurantid);
                 populateDB(restaurant);
                 resultList.add(restaurant);

@@ -47,8 +47,14 @@ public class ResultActivity extends AppCompatActivity {
          * get random restaurant index
          */
         int randomRestaurantIndex = 1;
+
+        /**
+         * Count the restaurants in the DB
+         * select random one
+         * generate card
+         */
         countCollections();
-        //generateCard(randomRestaurantIndex);
+
 
         Button selectRestaurantButton = findViewById(R.id.selectbutton);
 
@@ -105,6 +111,10 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * generate selected restaurant card
+     * @param numberofrestaurants
+     */
     private void generateCard(int numberofrestaurants) {
         /**
          * count the number of values in the collection
@@ -150,6 +160,12 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * populate history DB
+     * @param restaurantname
+     * @param restaurantaddress
+     * @param restaurantrating
+     */
     private void populateHistory(String restaurantname, String restaurantaddress, String restaurantrating){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name

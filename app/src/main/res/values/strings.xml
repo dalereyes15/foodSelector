@@ -19,5 +19,6 @@
     <string name="miles">miles</string>
     <string name="radius">Radius:</string>
     <string name="done">Done</string>
+    <string name="foodselecter">FoodSelecter</string>
 
 </resources>

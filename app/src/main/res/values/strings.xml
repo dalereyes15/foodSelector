@@ -20,5 +20,9 @@
     <string name="radius">Radius:</string>
     <string name="done">Done</string>
     <string name="foodselecter">FoodSelecter</string>
+    <string name="select">Select</string>
+    <string name="your_restaurant">Your Restaurant!</string>
+    <string name="address">Address</string>
+    <string name="rating">Rating</string>
 
 </resources>

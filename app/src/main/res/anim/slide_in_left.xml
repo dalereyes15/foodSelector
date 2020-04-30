@@ -4,4 +4,16 @@
         android:duration="@android:integer/config_mediumAnimTime"
         android:fromXDelta="-100%p"
         android:toXDelta="0" />
+
+    <alpha
+        android:duration="2000"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"/>
+
+    <rotate
+        android:duration="2000"
+        android:fromDegrees="25"
+        android:pivotX="0"
+        android:pivotY="0"
+        android:toDegrees="0"/>
 </set>

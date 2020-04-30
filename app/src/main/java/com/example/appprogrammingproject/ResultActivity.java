@@ -3,11 +3,14 @@ package com.example.appprogrammingproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,10 +58,14 @@ public class ResultActivity extends AppCompatActivity {
          */
         countCollections();
 
+//        CardView cardView = findViewById(R.id.cardView);
+//        Animation myanim = AnimationUtils.loadAnimation(this,R.anim.slide_in_left);
+//        cardView.startAnimation(myanim);
 
+        /**
+         * Button on click listener
+         */
         Button selectRestaurantButton = findViewById(R.id.selectbutton);
-
-
         selectRestaurantButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

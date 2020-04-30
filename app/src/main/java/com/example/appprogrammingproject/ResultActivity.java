@@ -16,6 +16,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class ResultActivity extends AppCompatActivity {
@@ -46,8 +50,25 @@ public class ResultActivity extends AppCompatActivity {
         countCollections();
         //generateCard(randomRestaurantIndex);
 
+        Button selectRestaurantButton = findViewById(R.id.selectbutton);
+
+
+        selectRestaurantButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                TextView restaurantnametextview = findViewById(R.id.restaurantname);
+                TextView restaurantaddress = findViewById(R.id.addressfillin);
+                TextView restaurantrating = findViewById(R.id.ratingfillin);
+                String name = restaurantnametextview.getText().toString();
+                String address = restaurantaddress.getText().toString();
+                String rating = restaurantrating.getText().toString();
+                populateHistory(name, address, rating);
+
+            }
+        });
+
     }
-    int numberofcollections;
 
     private void countCollections(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -80,9 +101,6 @@ public class ResultActivity extends AppCompatActivity {
 
     }
 
-    private void setNumberofcollections(int collections){
-        this.numberofcollections = collections;
-    }
 
     private void generateCard(int numberofrestaurants) {
         /**
@@ -127,6 +145,17 @@ public class ResultActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void populateHistory(String restaurantname, String restaurantaddress, String restaurantrating){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // Create a new user with a first and last name
+        Map<String, Object> restaurantObject = new HashMap<>();
+        restaurantObject.put("restaurant name", restaurantname);
+        restaurantObject.put("restaurant address", restaurantaddress);
+        restaurantObject.put("rating", restaurantrating);
+
+        db.collection("restauranthistory").add(restaurantObject);
     }
 
 

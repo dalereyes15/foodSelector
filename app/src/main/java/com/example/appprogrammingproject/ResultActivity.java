@@ -65,6 +65,9 @@ public class ResultActivity extends AppCompatActivity {
                 String rating = restaurantrating.getText().toString();
                 populateHistory(name, address, rating);
 
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                startActivity(intent);
+
             }
         });
 

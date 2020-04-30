@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent hello = new Intent(MainActivity.this, PreferencesActivity.class);
-                startActivity(hello);
+                Intent intent = new Intent(MainActivity.this, PreferencesActivity.class);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 //restaurantFacilitator(40.1998, -76.7311,10000);
                 restaurantFacilitator(addresslatitude, addresslongitude,1000);

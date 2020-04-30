@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_dark_default"
     tools:context=".MainActivity">
 
 
     <androidx.appcompat.widget.Toolbar
-       android:id="@+id/toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#4CAF50"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"  />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <Button
@@ -37,6 +38,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/projectNameHeader"
+        android:textColor="#FF9800"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
@@ -46,10 +48,10 @@
         android:layout_width="371dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="350dp"
         android:layout_marginEnd="20dp"
         android:text="@string/Main_Label"
-        android:textColor="@android:color/black"
+        android:textColor="#DF6C07"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,10 +62,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="162dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="90dp"
         android:layout_marginEnd="162dp"
-        android:background="#03A9F4"
+        android:background="#4CAF50"
         android:text="@string/button_label"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FCF9F9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -75,6 +79,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:layout_editor_absoluteX="162dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="70dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/food" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

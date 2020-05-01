@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AppProgrammingProject</string>
     <string name="projectNameHeader">The Eat Chooser</string>
-    <string name="Main_Label">What Do You Want To Eat?</string>
+    <string name="Main_Label">Where Do You Want To Eat?</string>
     <string-array name="categories">
         <item>Billie Jean</item>
         <item>PYT</item>

@@ -243,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                     rating = predsJsonArray.getJSONObject(i).getString("rating");
                 }
                 restaurantid = predsJsonArray.getJSONObject(i).getString("place_id");
-                Restaurant restaurant = new Restaurant(name, address, rating, restaurantid);
+                Restaurant restaurant = new Restaurant(name, address, rating);
                 populateDB(restaurant);
                 resultList.add(restaurant);
             }
@@ -267,7 +267,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
         Map<String, Object> restaurantObject = new HashMap<>();
-        restaurantObject.put("restaurant id", restaurant.getRestaurantid());
         restaurantObject.put("restaurant name", restaurant.getName());
         restaurantObject.put("restaurant address", restaurant.getAddress());
         restaurantObject.put("rating", restaurant.getRating());

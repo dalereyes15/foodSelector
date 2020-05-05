@@ -177,8 +177,8 @@ public class ResultActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // Create a new user with a first and last name
         Map<String, Object> restaurantObject = new HashMap<>();
-        restaurantObject.put("restaurant name", restaurantname);
-        restaurantObject.put("restaurant address", restaurantaddress);
+        restaurantObject.put("name", restaurantname);
+        restaurantObject.put("address", restaurantaddress);
         restaurantObject.put("rating", restaurantrating);
 
         db.collection("restauranthistory").add(restaurantObject);

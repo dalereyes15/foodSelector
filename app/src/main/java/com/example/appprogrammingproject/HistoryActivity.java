@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +38,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         db =FirebaseFirestore.getInstance();
 
-        db.collection("restaurants")
+        db.collection("restauranthistory")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -95,6 +97,17 @@ public class HistoryActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull RestaurantListAdapter.ViewHolder holder, int position) {
             holder.name.setText(data.get(position).getName());
+
+            holder.name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + data.get(position).getAddress());
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                }
+            });
+
             holder.rating.setText(data.get(position).getRating());
         }
 

@@ -5,17 +5,16 @@ public class Restaurant {
     private String name;
     private String rating;
     private String address;
-    private String restaurantid;
+
 
     Restaurant() {
 
     }
 
-    Restaurant(String name, String address, String rating, String restaurantid) {
+    Restaurant(String name, String address, String rating) {
         this.name = name;
         this.address = address;
         this.rating = rating;
-        this.restaurantid = restaurantid;
     }
 
     public void setName(String name) {
@@ -30,10 +29,6 @@ public class Restaurant {
         this.rating = rating;
     }
 
-    public void setRestaurantid(String restaurantid) {
-        this.restaurantid = restaurantid;
-    }
-
     public String getName() {
         return name;
     }
@@ -46,7 +41,4 @@ public class Restaurant {
         return rating;
     }
 
-    public String getRestaurantid() {
-        return restaurantid;
-    }
 }

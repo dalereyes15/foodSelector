@@ -24,5 +24,6 @@
     <string name="your_restaurant">Your Restaurant!</string>
     <string name="address">Address</string>
     <string name="rating">Rating</string>
+    <string name="radiusPromptMessage">Set The Distance From Your Location</string>
 
 </resources>

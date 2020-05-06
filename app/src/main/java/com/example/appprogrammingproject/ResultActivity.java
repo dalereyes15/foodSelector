@@ -136,7 +136,7 @@ public class ResultActivity extends AppCompatActivity {
                     TextView addresstextview = findViewById(R.id.addressfillin);
                     TextView ratingtextview = findViewById(R.id.ratingfillin);
                     Random random = new Random();
-                    int decidedcollection = random.nextInt(numberofrestaurants) + 1;
+                    int decidedcollection = random.nextInt(numberofrestaurants) + 2;
 
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

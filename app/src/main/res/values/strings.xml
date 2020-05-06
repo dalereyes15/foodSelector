@@ -16,7 +16,7 @@
     <string name="history_card_name">restaurant_name</string>
     <string name="history_card_rating">restaurant_rating</string>
     <string name="settings">Settings</string>
-    <string name="miles">miles</string>
+    <string name="miles">meters</string>
     <string name="radius">Radius:</string>
     <string name="done">Done</string>
     <string name="foodselecter">FoodSelecter</string>

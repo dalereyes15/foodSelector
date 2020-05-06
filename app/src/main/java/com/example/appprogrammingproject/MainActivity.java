@@ -33,6 +33,7 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     double addresslatitude =  0.0;
     double addresslongitude = 0.0;
+    int userInputtedRadius = 0;
 
     LatLng addressCoordinates;
 
@@ -130,7 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 //restaurantFacilitator(40.1998, -76.7311,10000);
-                restaurantFacilitator(addresslatitude, addresslongitude,1000);
+                getRadiusFromDB();
+                System.out.println("The value of radius is:: " + userInputtedRadius);
+                //restaurantFacilitator(addresslatitude, addresslongitude,1000);
             }
         });
 
@@ -145,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
          * Since a new address will be added every time make sure to wipe the DB
          */
         clearDB();
+
+
 
 
     }
@@ -303,5 +309,35 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private int getRadiusFromDB(){
+        int radius = 0;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("users").document("desireddistance");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        //Log.i("LOGGER","First "+document.getString("radius"));
+                        String userRadiusString = document.getString("radius");
+                        System.out.println("RADIUS IN DB " + userRadiusString);
+                        int userRadiusIntValue = Integer.parseInt(userRadiusString);
+                        /**
+                         * Call the facilitator here
+                         */
+                        restaurantFacilitator(addresslatitude, addresslongitude,userRadiusIntValue);
+                    } else {
+                        Log.d("LOGGER", "No such document");
+                    }
+                } else {
+                    Log.d("LOGGER", "get failed with ", task.getException());
+                }
+            }
+        });
+        return radius;
+    }
+
 
 }

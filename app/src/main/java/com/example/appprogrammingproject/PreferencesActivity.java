@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.prefs.Preferences;
 
 public class PreferencesActivity extends AppCompatActivity {
 
@@ -33,19 +36,24 @@ public class PreferencesActivity extends AppCompatActivity {
 
         EditText meterInput = findViewById(R.id.inputtedRadius);
 
+
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
 
                 String meterValue = meterInput.getText().toString();
 
                 updatePreference(meterValue);
 
-
-            }
+                if(meterInput.length()==0) {
+                    meterInput.setError("Enter radius");
+                }
+                else {
+                        Toast.makeText(PreferencesActivity.this, "Radius Set!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    }
+                }
         });
     }
 
